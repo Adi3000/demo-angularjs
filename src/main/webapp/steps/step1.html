@@ -1,0 +1,33 @@
+<div id="sheet" data-ng-controller="WhichOnesSheetController">
+	<div id="list-header" class="ui-corner-all">
+		<div class="ui-widget-header ui-corner-top">
+			<div>{{ sheet.title }}</div>
+			<div>{{ sheet.description }}</div>
+		</div>
+		<table>
+			<thead>
+				<tr>
+					<th data-ng-repeat="header in sheet.headers">
+						{{ header.name }}
+					</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr data-ng-repeat="line in orderedLines" 
+					data-ng-class="{selectedLine: line.selected}" 
+					class="line">
+					<td data-ng-repeat="datum in line.data"  class="line">
+						{{ datum.value }} 
+					</td>						
+				</tr>
+			</tbody>
+			<tfoot>
+				<tr>
+					<td data-ng-repeat="header in sheet.headers" >
+						<span data-ng-if="header.isValue">{{header.total}}</span>
+					</td>
+				</tr>
+			</tfoot>
+		</table>
+	</div>
+</div>

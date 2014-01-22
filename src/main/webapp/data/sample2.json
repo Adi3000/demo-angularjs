@@ -1,0 +1,198 @@
+{
+	"id":"test",
+	"title":"Liste de Nöel",
+	"description":"Il est jamais trop tard pour faire plaisir",
+	"headers":[
+		{
+			"name":"Titre",
+			"type":"s1"
+		},
+		{
+			"name":"Commentaire",
+			"type":"s1"
+		},
+		{
+			"name":"Lien",
+			"type":"url"
+		},
+		{
+			"name":"Prix",
+			"type":"px",
+			"isValue":true
+		}
+		
+	],
+	"lines":[
+		{
+			"id":1,
+			"selected":true,
+			"section":{
+				"name":"Essentiel & vital",
+				"index":1,
+				"id":1
+			},
+			"data":[
+				{
+					"value":"Playstation 4"
+				},
+				{
+					"value":"Pour les moments de détentes"
+				},
+				{
+					"value":"http://test1.1.com"
+				},
+				{
+					"value":349
+				}
+				
+			]
+			
+		},
+		{
+			"id":6,
+			"selected":true,
+			"section":{
+				"name":"Essentiel & vital",
+				"index":1,
+				"id":1
+			},
+			"data":[
+				{
+					"value":"LG G2"
+				},
+				{
+					"value":"Pour être toujours joignable"
+				},
+				{
+					"value":"http://test1.2.com"
+				},
+				{
+					"value":480
+				}
+				
+			]
+			
+		},
+		{
+			"id":2,
+			"selected":true,
+			"section":{
+				"name":"Essentiel & vital",
+				"index":1,
+				"id":1
+			},
+			"data":[
+				{
+					"value":"Abonnement perpetuel (20 ans) a FF XIV"
+				},
+				{
+					"value":"Pour une vie pleine d'aventure"
+				},
+				{
+					"value":"http://test2.1.com"
+				},
+				{
+					"value":2400
+				}
+				
+			]
+			
+		},
+		{
+			"id":7,
+			"selected":true,
+			"data":[
+				{
+					"value":"Caddie"
+				},
+				{
+					"value":"Pour des courses effrénées"
+				},
+				{
+					"value":"http://test0.1.com"
+				},
+				{
+					"value":1
+				}
+				
+			]
+			
+		},
+		{
+			"id":5,
+			"section":{
+				"name":"Petit plus de confort de vie",
+				"index":2,
+				"id":2
+			},
+			"selected":false,
+			"data":[
+				{
+					"value":"Google Glass"
+				},
+				{
+					"value":"Pour voir et être bien vu"
+				},
+				{
+					"value":"http://test1.3.com"
+				},
+				{
+					"value":1890
+				}
+				
+			]
+			
+		},
+		{
+			"id":4,
+			"section":{
+				"name":"Petit plus de confort de vie",
+				"index":2,
+				"id":2
+			},
+			"selected":false,
+			"data":[
+				{
+					"value":"Télévision 4K"
+				},
+				{
+					"value":"Pour voir les choses en grand"
+				},
+				{
+					"value":"http://test2.3.com"
+				},
+				{
+					"value":1999
+				}
+				
+			]
+			
+		},
+		{
+			"id":3,
+			"section":{
+				"name":"Petit plus de confort de vie",
+				"index":2,
+				"id":2
+			},
+			"selected":true,
+			"data":[
+				{
+					"value":"Piscine interieur chauffée"
+				},
+				{
+					"value":"Pour une hygiène impeccable"
+				},
+				{
+					"value":"http://test2.2.com"
+				},
+				{
+					"value":35000
+				}
+				
+			]
+			
+		}
+		
+	]
+}

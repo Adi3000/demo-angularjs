@@ -1,0 +1,11 @@
+<div class="editable">
+	<div data-ng-hide="editing">
+		<span>{{ value }}</span>
+		<span data-ng-if="role.editor" class="ui-icon ui-icon-pencil" data-button="true" data-ng-click="edit()"></span>
+	</div>
+	<div data-ng-show="editing" data-editable-zone="true" data-ng-if="role.editor">
+		<input type="text" class="editField" data-ng-model="editingValue" tabindex="10" placeholder="{{placeholder}}"/>
+		<span class="save ui-icon ui-icon-check" data-button="true" data-ng-click="save(editingValue)"> </span>
+		<span class="ui-icon ui-icon-closethick" data-button="true" data-ng-click="close()"></span>
+	</div>
+</div>

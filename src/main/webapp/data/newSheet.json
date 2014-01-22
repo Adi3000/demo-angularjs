@@ -1,0 +1,32 @@
+{
+	"title":"",
+	"isNew" : true,
+	"description":"",
+	"headers":[
+		{
+			"name":"Nom",
+			"type":"s1"
+		},
+		{
+			"name":"Prix",
+			"type":"px",
+			"isValue":true
+		}
+		
+	],
+	"lines":[
+		{
+			"selected": true,
+			"data":[
+				{
+					"value":"",
+					"isNew" : true
+				},
+				{
+					"value": 0,
+					"isNew" : true
+				}
+			]
+		}
+	]
+}
