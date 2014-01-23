@@ -156,10 +156,11 @@ var whichOnesDirectives = angular.module('whichOnesDirectives', ['whichOnesContr
 					if(!angular.isUndefined(line.section)){
 						$element.addClass(evenSection ? sectionEvenClass : sectionOddClass);
 					}
+					$timeout(function(){
+						$element.mouseenter(function(){$(this).addClass("lineHover");});
+						$element.mouseleave(function(){$(this).removeClass("lineHover");});
+					});
 				}
-				$timeout(function(){
-					$element.mouseover(function(){$(this).effect("highlight");});
-				});
 			}
 		};
 	})

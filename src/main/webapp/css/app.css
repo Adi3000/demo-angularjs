@@ -24,32 +24,38 @@ table{
 	border-top: 0px dotted #000;
 	padding : 5px;
 }
-.selectedLine{
+#sheet .selectedLine{
 	background-color : #80E46E;
+}
+#sheet .lineHover{
+	background-color: #FFFFAA;
+}
+#sheet .lineHover.selectedLine{
+	background-color: #FFFFFF;
 }
 #sheet td{
 	padding : 5px;
 }
-.sectionEven th,
-.sectionEven td:first-child{
+#sheet .sectionEven th,
+#sheet .sectionEven td:first-child{
 	border-left: 1px solid #FFF;
 }
-.sectionEven th,
-.sectionEven td:last-child{
+#sheet .sectionEven th,
+#sheet .sectionEven td:last-child{
 	border-right: 1px solid #FFF;
 }
-.sectionOdd th,
-.sectionOdd td:first-child{
+#sheet .sectionOdd th,
+#sheet .sectionOdd td:first-child{
 	border-left: 1px solid #c8d3dc;
 }
-.sectionOdd th,
-.sectionOdd td:last-child{
+#sheet .sectionOdd th,
+#sheet .sectionOdd td:last-child{
 	border-right: 1px solid #c8d3dc;
 }
-.sectionEven th{
+#sheet .sectionEven th{
 	border-top: 1px solid #FFF;
 }
-.sectionOdd th{
+#sheet .sectionOdd th{
 	border-top: 1px solid #c8d3dc;
 }
 

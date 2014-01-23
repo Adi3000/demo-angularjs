@@ -18,9 +18,15 @@
 					data-line="line"
 					data-selectable="line" 
 					data-line-id="{{line.id}}"
-					data-ng-click="select()"
+					data-ng-click="line.isSection || select()"
 					class="line">
-					<td data-ng-repeat="datum in line.data" >
+					<th data-ng-if="line.isSection" 
+						class="sectionHeader" 
+						data-section-id="line.section.id"
+						colspan="{{sheet.headers.length}}" >
+						{{ line.section.name }}
+					</th>
+					<td data-ng-repeat="datum in line.data" data-ng-if="!line.isSection" class="line">
 						{{ datum.value }} 
 					</td>						
 				</tr>

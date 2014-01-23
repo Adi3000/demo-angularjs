@@ -5,6 +5,7 @@
 var whichOnes = angular.module('whichOnes', [
   'whichOnesDirectives',
   'whichOnesControllers',
-  'ngRoute'
+  'ngRoute',
+  'ngSanitize'
 ]);
 

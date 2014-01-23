@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="en" data-ng-app="whichOnes">
+	<head>
+		<meta charset="utf-8">
+		<meta name="Keywords" content="productivity">
+		<meta name="Subject" content="productivity">
+		<meta name="Author" content="Adrien Ramarojohn - Adi3000">
+		<meta name="Revisit-After" content="15 days">
+		<meta name="Category" content="engineering">
+		<meta name="Geography" content="France, Lille">
+		<title>Which ones</title>
+		<link rel="stylesheet" href="//code.jquery.com/ui/1.10.3/themes/start/jquery-ui.min.css" />
+		<link rel="stylesheet" href="css/app.css" />
+		<link rel="stylesheet" href="css/app-print.css" media="print" />
+		<link rel="shortcut icon" href="img/favicon.png" />
+		
+		<script src="//code.jquery.com/jquery-1.10.2.min.js"></script>
+		<script src="//code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
+		<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.7/angular.min.js"></script>
+		<script src="http://code.angularjs.org/1.2.7/angular-route.min.js"></script>
+	 	<script src="http://code.angularjs.org/1.2.7/angular-resource.js"></script>
+	 	<script src="http://code.angularjs.org/1.2.7/angular-sanitize.min.js"></script>
+	 	<script src="http://code.angularjs.org/1.2.7/i18n/angular-locale_fr-fr.js"></script>
+	 	<script src="lib/angular/angular-translate.min.js"></script>
+		<script src="//cdnjs.cloudflare.com/ajax/libs/jquery-powertip/1.2.0/jquery.powertip.min.js"></script>
+		<script src="js/common.js"></script>
+		<script src="js/appTuto.js"></script>
+		<script src="js/translate.js"></script>
+		<script src="js/services.js"></script>
+		<script src="js/controllers.js"></script>
+		<script src="js/directives.js"></script>
+		<script src="js/directives.js"></script>
+		<script src="lib/syntaxhighlighter/scripts/shCore.js"></script>
+		<script src="lib/syntaxhighlighter/scripts/shBrushXml.js"></script>
+		<link  rel="stylesheet" href="lib/syntaxhighlighter/styles/shCoreEclipse.css" />
+		<link  rel="stylesheet" href="lib/syntaxhighlighter/styles/shThemeEclipse.css" />
+	</head>
+	<body>
+		<div id="body" class="view-container ui-corner-all" data-ng-controller="tutoSteps">
+			Step : {{ step }}
+			<div>
+				<div>
+					<span> Go to : </span>
+					<input id="radioStep1" type="radio" data-ng-model="step" value="1" data-ng-change="refresh()" /><label for="radioStep1">Step 1</label>
+					<input id="radioStep2" type="radio" data-ng-model="step" value="2" data-ng-change="refresh()" /><label for="radioStep2">Step 2</label>
+					<input id="radioStep3" type="radio" data-ng-model="step" value="3" data-ng-change="refresh()" /><label for="radioStep3">Step 3</label>
+					<input id="radioStep4" type="radio" data-ng-model="step" value="4" data-ng-change="refresh()" /><label for="radioStep4">Step 4</label>
+					<input id="radioStep5" type="radio" data-ng-model="step" value="5" data-ng-change="refresh()" /><label for="radioStep5">Step 5</label>
+				</div>
+				<div>
+					<span> Sheet Sample :</span>
+					<input id="radioSample1" type="radio" data-ng-model="sample" value="sample1" data-ng-change="refresh()" /><label for="radioSample1">Simple</label>
+					<input id="radioSample2" type="radio" data-ng-model="sample" value="sample2" data-ng-change="refresh()" /><label for="radioSample2">Section</label>
+				</div>
+			</div>
+			<div data-ng-if="step == 1">
+				<div data-ng-include data-src="'steps/step1.html'" ></div>
+			</div>
+			<div data-ng-if="step == 2">
+				<div data-ng-include data-src="'steps/step2.html'" ></div>
+			</div>
+			<div data-ng-if="step == 3">
+				<div data-ng-include data-src="'steps/step3.html'"></div>
+			</div>
+			<div data-ng-if="step == 4">
+				<div data-ng-include data-src="'steps/step4.html'" ></div>
+			</div>
+			<div data-ng-if="step == 5">
+				<div data-ng-include data-src="'steps/step5.html'" ></div>
+			</div>
+			<div data-syntax-highlight="html"></div>
+		</div>
+		<div id="copyright">
+			Designed by <a href="#" >Adi3000</a>.
+			Powered by <a href="http://angularjs.org/" >AngularJS</a> and <a href="http://jquery.com/">jQuery</a>
+		</div>
+	</body>
+</html>
