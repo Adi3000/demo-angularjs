@@ -38,4 +38,52 @@
 			<version>1.17.1</version>
 		</dependency>
   </dependencies>
+  <build>
+	<filters>
+		<filter>src/main/filters/environment/${filter.environment}/filters.properties</filter>
+	</filters>
+	<resources>
+		<resource>
+			<directory>src/main/resources</directory>
+			<filtering>true</filtering>
+		</resource>
+		<resource>
+			<directory>src/test/resources</directory>
+			<filtering>true</filtering>
+			<targetPath>${project.build.directory}/test-classes</targetPath>
+		</resource>
+	</resources>
+  </build>
+  <profiles>
+ 	<profile>
+		<id>development</id>
+		<activation>
+			<activeByDefault>true</activeByDefault>
+		</activation>
+		<properties>
+			<filter.environment>development</filter.environment>
+		</properties>
+	</profile>
+	<profile>
+		<id>production</id>
+		<activation>
+			<activeByDefault>false</activeByDefault>
+		</activation>
+		<properties>
+			<filter.environment>production</filter.environment>
+		</properties>
+	</profile>
+	<profile>
+		<id>test</id>
+		<activation>
+			<activeByDefault>false</activeByDefault>
+		</activation>
+		<properties>
+			<filter.environment>test</filter.environment>
+			<liquibase.update.skip>true</liquibase.update.skip>
+			<liquibase.update.skip.test>false</liquibase.update.skip.test>
+			<liquibase.ant.update.skip>true</liquibase.ant.update.skip>
+		</properties>
+	</profile>
+  </profiles>
 </project>

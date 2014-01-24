@@ -19,12 +19,13 @@ function orderSheet(sheet){
 var whichOnesServices = angular.module('whichOnesServices', ['ngResource'])
 	.factory('WhichOnesData', ['$resource',
 	   function($resource){
-			return $resource('/rest/data', {tokenId: '@tokenId' }, {
+			return $resource('rest/sheet/:tokenId', {tokenId: '@tokenId' }, {
 				auth: {method:'POST', params:{password:'@password'}, isArray:false},
-				getNewSheet: {method:'GET', url:'/data/newSheet.json', isArray:false},		
+				getNewSheet: {method:'GET', url:'data/newSheet.json', isArray:false},		
 				getSample1: {method:'GET', url:'data/sample1.json', isArray:false},
 				getSample2: {method:'GET', url:'data/sample2.json', isArray:false},
-				create: {method: 'POST'}
+				getSample3: {method:'GET', url:'data/sample3.json', isArray:false},
+				create: {method: 'POST', url: 'rest/sheet/create', isArray: false}
 			});
 	   }
 	])
@@ -39,6 +40,8 @@ var whichOnesServices = angular.module('whichOnesServices', ['ngResource'])
 						this.sheet = WhichOnesData.getSample1();
 					}else if(tokenId == "sample2"){
 						this.sheet = WhichOnesData.getSample2();
+					}else if(tokenId == "sample3"){
+						this.sheet = WhichOnesData.getSample3();
 					}else{
 						this.sheet = WhichOnesData.get({"tokenId" : tokenId});
 					}
@@ -74,7 +77,7 @@ var whichOnesServices = angular.module('whichOnesServices', ['ngResource'])
 				},
 				saveSheet: function(){
 					console.log(this.sheet);
-					$rootScope.$broadcast( 'sheet.update' );
+					$rootScope.$broadcast( 'sheet.available' );
 				},
 				saveLine: function(id){
 					console.log(findLine(this.sheet.lines, id));
@@ -84,8 +87,15 @@ var whichOnesServices = angular.module('whichOnesServices', ['ngResource'])
 					console.log(section);
 					$rootScope.$broadcast( 'sheet.update' );
 				},
-				create: function(sheet){
-					
+				createSheet: function(sheet){
+					sheet.id = null;
+					angular.forEach(sheet.lines,function(line){
+						line.id = null;
+					});
+					var newSheet = WhichOnesData.create(sheet);
+					console.log(newSheet);
+					this.sheet = newSheet;
+					$rootScope.$broadcast( 'sheet.available' );
 				},
 				prepareSheet: function(){
 					this.sheet.$promise.then(function(sheet){
@@ -103,15 +113,15 @@ var whichOnesServices = angular.module('whichOnesServices', ['ngResource'])
 						newLine.section = { "name" : line.section.name,  "id" : line.section.id };
 					}
 					angular.forEach(line.data,function(datum){
-						newLine.data.push({"value" : "", "isNew" : true });
+						newLine.data.push({"value" : "", "newValuenewValue" : true });
 					});
 					this.sheet.lines.push(newLine);
-					$rootScope.$broadcast( 'sheet.update' );
+					$rootScope.$broadcast( 'sheet.available' );
 				},
 				addColumn: function(){
-					this.sheet.headers.push({ "name" : "", "type" : "s1" , "isNew" : true });
+					this.sheet.headers.push({ "name" : "", "type" : "s1" , "newValuealue" : true });
 					angular.forEach(this.sheet.lines, function(line){
-						line.data.push({"value" : "", "isNew" : true});
+						line.data.push({"value" : "", "newValue" : true});
 					});
 					console.log(this.sheet);
 					$rootScope.$broadcast( 'sheet.update' );

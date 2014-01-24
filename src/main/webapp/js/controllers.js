@@ -22,6 +22,11 @@ angular.module('whichOnesControllers', ['whichOnesServices', 'ngRoute'])
 				updateScopeSheet($scope.sheet, $scope);
 			});
 			$scope.saveSheet = function(){
+				WhichOnesSheetService.saveSheet();
+				console.log($scope.sheet);
+			};
+			$scope.create = function(){
+				WhichOnesSheetService.createSheet($scope.sheet);
 				console.log($scope.sheet);
 			};
 			$scope.$on('code.available', function(e){
@@ -63,7 +68,6 @@ angular.module('whichOnesControllers', ['whichOnesServices', 'ngRoute'])
 							$("<pre />")
 								.addClass("brush: html")
 								.text(code));
-						console.log(code, $element);
 						SyntaxHighlighter.highlight();
 					});
 //					$scope.$on( 'code.available', function( event ) {

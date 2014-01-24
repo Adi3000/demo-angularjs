@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- For assistance related to logback-translator or configuration -->
+<!-- files in general, please contact the logback user mailing list -->
+<!-- at http://www.qos.ch/mailman/listinfo/logback-user -->
+<!-- -->
+<!-- For professional support please see -->
+<!-- http://www.qos.ch/shop/products/professionalSupport -->
+<!-- -->
+<included>
+	<appender name="stdout" class="ch.qos.logback.core.ConsoleAppender">
+		<Target>${logger.output.console}</Target>
+		<encoder>
+			<pattern>%d{yyyy-MM-dd HH:mm:ss} %-5level %logger[%L] - %m%n</pattern>
+		</encoder>
+	</appender>
+
+	<root level="${logger.output.console.level}">
+	    <appender-ref ref="stdout" />
+	</root>
+	<logger name="org.dbunit.operation" level="DEBUG" />
+	<logger name="com.adi3000.common" level="TRACE" />
+	<logger name="net.whichones" level="DEBUG" />
+	<logger name="org.hibernate" level="INFO" />
+	<logger name="org.hibernate.SQL" level="DEBUG" />
+	<logger name="org.hibernate.type" level="INFO" />
+</included>

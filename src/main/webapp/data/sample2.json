@@ -18,7 +18,7 @@
 		{
 			"name":"Prix",
 			"type":"px",
-			"isValue":true
+			"value":true
 		}
 		
 	],
@@ -89,7 +89,7 @@
 					"value":"Pour une vie pleine d'aventure"
 				},
 				{
-					"value":"http://test2.1.com"
+					"value":"http://test1.3.com"
 				},
 				{
 					"value":2400
@@ -134,7 +134,7 @@
 					"value":"Pour voir et être bien vu"
 				},
 				{
-					"value":"http://test1.3.com"
+					"value":"http://test2.1.com"
 				},
 				{
 					"value":1890
@@ -159,7 +159,7 @@
 					"value":"Pour voir les choses en grand"
 				},
 				{
-					"value":"http://test2.3.com"
+					"value":"http://test2.2.com"
 				},
 				{
 					"value":1999
@@ -184,7 +184,7 @@
 					"value":"Pour une hygiène impeccable"
 				},
 				{
-					"value":"http://test2.2.com"
+					"value":"http://test2.3.com"
 				},
 				{
 					"value":35000

@@ -46,11 +46,13 @@
 					<input id="radioStep3" type="radio" data-ng-model="step" value="3" data-ng-change="refresh()" /><label for="radioStep3">Step 3</label>
 					<input id="radioStep4" type="radio" data-ng-model="step" value="4" data-ng-change="refresh()" /><label for="radioStep4">Step 4</label>
 					<input id="radioStep5" type="radio" data-ng-model="step" value="5" data-ng-change="refresh()" /><label for="radioStep5">Step 5</label>
+					<input id="radioStep6" type="radio" data-ng-model="step" value="6" data-ng-change="refresh()" /><label for="radioStep6">Step 6</label>
 				</div>
 				<div>
 					<span> Sheet Sample :</span>
 					<input id="radioSample1" type="radio" data-ng-model="sample" value="sample1" data-ng-change="refresh()" /><label for="radioSample1">Simple</label>
 					<input id="radioSample2" type="radio" data-ng-model="sample" value="sample2" data-ng-change="refresh()" /><label for="radioSample2">Section</label>
+					<input id="radioSample3" type="radio" data-ng-model="sample" value="sample3" data-ng-change="refresh()" /><label for="radioSample3">Restful</label>
 				</div>
 			</div>
 			<div data-ng-if="step == 1">
@@ -67,6 +69,9 @@
 			</div>
 			<div data-ng-if="step == 5">
 				<div data-ng-include data-src="'steps/step5.html'" ></div>
+			</div>
+			<div data-ng-if="step == 6">
+				<div data-ng-include data-src="'steps/step6.html'" ></div>
 			</div>
 			<div data-syntax-highlight="html"></div>
 		</div>

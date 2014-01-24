@@ -1,6 +1,6 @@
 {
 	"title":"",
-	"isNew" : true,
+	"newSheet" : true,
 	"description":"",
 	"headers":[
 		{
@@ -10,7 +10,7 @@
 		{
 			"name":"Prix",
 			"type":"px",
-			"isValue":true
+			"value":true
 		}
 		
 	],
@@ -20,11 +20,11 @@
 			"data":[
 				{
 					"value":"",
-					"isNew" : true
+					"newValue" : true
 				},
 				{
 					"value": 0,
-					"isNew" : true
+					"newValue" : true
 				}
 			]
 		}

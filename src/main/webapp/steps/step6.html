@@ -21,7 +21,7 @@
 						data-editable="header.name" 
 						data-placeholder="{{ 'LB_COLUMN_FILED' | translate }}"
 						data-mandatory="true"
-						data-init-editing="header.newSheet">
+						data-init-editing="header.newValue">
 				</tr>
 			</thead>
 			<tbody data-nb-columns="{{sheet.headers.length +1}}">
@@ -37,12 +37,12 @@
 						data-editable="line.section.name" 
 						data-mandatory="true"
 						data-placeholder="{{ 'LB_SECTION_FILED' | translate }}"
-						data-init-editing="line.section.newSheet"
+						data-init-editing="line.section.newValue"
 						colspan="{{sheet.headers.length +1}}" />
 					<td data-manage-line="line"
 						data-ng-if="!line.isSection" /> 
 					<td data-editable="datum.value"
-						data-init-editing="datum.newSheet"
+						data-init-editing="datum.newValue"
 						data-ng-if="!line.isSection" 
 						class="line"
 						data-ng-repeat="datum in line.data" />
