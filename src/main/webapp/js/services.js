@@ -5,7 +5,7 @@ function orderSheet(sheet){
 	angular.forEach(sheet.lines,function(line, index){
 		if(!angular.isUndefined(line.section)){
 			if( index == 0
-				(index > 0 && (angular.isUndefined(sheet.lines[index-1].section) ||
+				(index > 0 && (isEmpty(sheet.lines[index-1].section) ||
 						line.section.id  == sheet.lines[index-1].section.id) )){
 				orderedSheet.push({"isSection" : true, "name" : line.section.name });
 			}
@@ -17,6 +17,13 @@ function orderSheet(sheet){
 /* Services */
 
 var whichOnesServices = angular.module('whichOnesServices', ['ngResource'])
+	.factory('WhichOnesLines', ['$resource',
+		function($resource){
+			return $resource('rest/sheet/line/:lineId', {lineId: '@lineId' }, {
+				remove : {method: 'POST', url: 'rest/sheet/remove/line/:lineId',params : { lineId : "@lineId" }}
+			});
+		}
+	])
 	.factory('WhichOnesData', ['$resource',
 	   function($resource){
 			return $resource('rest/sheet/:tokenId', {tokenId: '@tokenId' }, {
@@ -25,12 +32,12 @@ var whichOnesServices = angular.module('whichOnesServices', ['ngResource'])
 				getSample1: {method:'GET', url:'data/sample1.json', isArray:false},
 				getSample2: {method:'GET', url:'data/sample2.json', isArray:false},
 				getSample3: {method:'GET', url:'data/sample3.json', isArray:false},
-				create: {method: 'POST', url: 'rest/sheet/create', isArray: false}
+				create: {method: 'POST', url: 'rest/sheet/create', isArray: false},
 			});
 	   }
 	])
-	.service('WhichOnesSheetService', ['$rootScope', 'WhichOnesData',
-        function($rootScope, WhichOnesData, $translate){
+	.service('WhichOnesSheetService', ['$rootScope', 'WhichOnesData', 'WhichOnesLines',
+        function($rootScope, WhichOnesData, WhichOnesLines){
 			return {
 				sheet : null,
 				getSheet : function (tokenId){
@@ -51,10 +58,14 @@ var whichOnesServices = angular.module('whichOnesServices', ['ngResource'])
 					var orderedSheet = new Array();
 					var sheet = this.sheet;
 					angular.forEach(sheet.lines,function(line, index){
-						if(!angular.isUndefined(line.section)){
+						if(!isEmpty(line.section)){
+							console.log(index == 0 ? "none" :sheet.lines[index-1].section);
 							if( index == 0 ||
-								(index > 0 && (angular.isUndefined(sheet.lines[index-1].section) ||
-										line.section.id  != sheet.lines[index-1].section.id) )){
+								(index > 0 && 
+										(isEmpty(sheet.lines[index-1].section) ||
+										line.section.id  != sheet.lines[index-1].section.id) 
+								)
+							){
 								orderedSheet.push({"isSection" : true, "section" : { "name" : line.section.name , "id" : line.section.id } });
 							}
 						}
@@ -66,7 +77,8 @@ var whichOnesServices = angular.module('whichOnesServices', ['ngResource'])
 					var sections = {};
 					var sheet = this.sheet;
 					angular.forEach(sheet.lines,function(line, index){
-						if(!angular.isUndefined(line.section)){
+						console.log(line,line.section);
+						if(!isEmpty(line.section)){
 							if(angular.isUndefined(sections[line.section.id])){
 								sections[line.section.id] = line.section;
 							}
@@ -77,15 +89,34 @@ var whichOnesServices = angular.module('whichOnesServices', ['ngResource'])
 				},
 				saveSheet: function(){
 					console.log(this.sheet);
-					$rootScope.$broadcast( 'sheet.available' );
+					this.prepareSheet();
 				},
 				saveLine: function(id){
-					console.log(findLine(this.sheet.lines, id));
-					$rootScope.$broadcast( 'sheet.update' );
+					var line = findLine(this.sheet.lines, id);
+					if(line.$resolved){
+						line.$save().then(function(newLine){
+							$rootScope.$broadcast( 'sheet.update' );
+						});
+					}else{
+						line = WhichOnesLines.save(line);
+						line.$promise.then(function(newLine){
+							$rootScope.$broadcast( 'sheet.update' );
+						});
+					}
+					console.log(line);
 				},
 				saveSection: function(section){
 					console.log(section);
 					$rootScope.$broadcast( 'sheet.update' );
+				},
+				controleNewSheet: function(){
+					this.sheet.$promise.then(function(sheet){
+						console.log(sheet.token, sheet);
+						if(!angular.isUndefined(sheet.token)){
+							$rootScope.$broadcast( 'sheet.created' );
+						}
+						$rootScope.$broadcast( 'sheet.available' );
+					});
 				},
 				createSheet: function(sheet){
 					sheet.id = null;
@@ -95,7 +126,7 @@ var whichOnesServices = angular.module('whichOnesServices', ['ngResource'])
 					var newSheet = WhichOnesData.create(sheet);
 					console.log(newSheet);
 					this.sheet = newSheet;
-					$rootScope.$broadcast( 'sheet.available' );
+					return this.sheet;
 				},
 				prepareSheet: function(){
 					this.sheet.$promise.then(function(sheet){
@@ -104,22 +135,37 @@ var whichOnesServices = angular.module('whichOnesServices', ['ngResource'])
 				},
 				deleteLine: function(line){
 					var index = findLineIndex(this.sheet.lines, line.id);
-					this.sheet.lines.splice(index,1);
-					$rootScope.$broadcast( 'sheet.update' );
+					var $lines = this.sheet.lines;
+					WhichOnesLines.remove({lineId : line.id}).$promise.then(function(){
+						$lines.splice(index,1);
+						$rootScope.$broadcast( 'sheet.update' );
+					});
 				},
 				addLineAfter: function(line){
-					var newLine = { "data" : new Array()};
-					if(!angular.isUndefined(line.section)){
-						newLine.section = { "name" : line.section.name,  "id" : line.section.id };
+					var newLine = {
+							"data" : new Array(), 
+							"selected" : false, 
+							"index" : line.index+1,
+							"sheet" : { "id" : this.sheet.id }
+						};
+					if(!isEmpty(line.section)){
+						newLine.section = { 
+								"name" : line.section.name,  
+								"id" : line.section.id 
+							};
 					}
 					angular.forEach(line.data,function(datum){
-						newLine.data.push({"value" : "", "newValuenewValue" : true });
+						newLine.data.push({"value" : "", "newValue" : true });
 					});
-					this.sheet.lines.push(newLine);
-					$rootScope.$broadcast( 'sheet.available' );
+					newLine = WhichOnesLines.save(newLine);
+					var $lines = this.sheet.lines;
+					newLine.$promise.then(function(newLine){
+						$lines.push(newLine);
+						$rootScope.$broadcast( 'sheet.available' );
+					});
 				},
 				addColumn: function(){
-					this.sheet.headers.push({ "name" : "", "type" : "s1" , "newValuealue" : true });
+					this.sheet.headers.push({ "name" : "", "type" : "s1" , "newValue" : true });
 					angular.forEach(this.sheet.lines, function(line){
 						line.data.push({"value" : "", "newValue" : true});
 					});

@@ -5,13 +5,19 @@ import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Transient;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlTransient;
+
+import net.whichones.common.sheet.data.Sheet;
 
 import org.codehaus.jettison.json.JSONArray;
 import org.codehaus.jettison.json.JSONException;
@@ -37,6 +43,12 @@ public class Line extends AbstractDataObject implements Comparable<Line>{
 	private Group group;
 	private Section section;
 	private Boolean selected;
+	private Sheet sheet;
+	private Sheet sheetId;
+	
+	public Line(){
+		this.sheetId = new Sheet();
+	}
 	/**
 	 * @return the id
 	 */
@@ -70,6 +82,7 @@ public class Line extends AbstractDataObject implements Comparable<Line>{
 	 */
 	@Column(name="line_data")
 	@Type(type="com.adi3000.common.database.hibernate.usertype.JSONArrayUserType")
+	@XmlTransient
 	public JSONArray getDataJSON() {
 		try {
 			return Data.toJSONArray(data);
@@ -82,7 +95,7 @@ public class Line extends AbstractDataObject implements Comparable<Line>{
 	 * @param data the data to set
 	 */
 	public void setDataJSON(JSONArray dataJson) {
-		if(data == null){
+		if(dataJson == null){
 			this.data = null;
 		}else{
 			try {
@@ -98,6 +111,7 @@ public class Line extends AbstractDataObject implements Comparable<Line>{
 	/**
 	 * @return the group
 	 */
+	@ManyToOne(fetch=FetchType.EAGER)
 	@JoinColumn(name="group_id")
 	public Group getGroup() {
 		return group;
@@ -111,6 +125,7 @@ public class Line extends AbstractDataObject implements Comparable<Line>{
 	/**
 	 * @return the section
 	 */
+	@ManyToOne(fetch=FetchType.EAGER)
 	@JoinColumn(name="section_id")
 	public Section getSection() {
 		return section;
@@ -124,7 +139,7 @@ public class Line extends AbstractDataObject implements Comparable<Line>{
 	/**
 	 * @return the selected
 	 */
-	@Column(name="line_selected")
+	@Column(name="line_is_selected")
 	@Type(type="yes_no")
 	public Boolean getSelected() {
 		return selected;
@@ -153,13 +168,13 @@ public class Line extends AbstractDataObject implements Comparable<Line>{
 		return this.getFullIndex() - o.getFullIndex();
 	}
 	@Transient
-	private int getFullIndex(){
-		int majorIndex = this.index;
-		int mediumIndex = this.index;
-		int minorIndex = this.index;
+	int getFullIndex(){
+		int index = this.index == null ? 0 : this.index;
+		int majorIndex = index;
+		int mediumIndex = index;
+		int minorIndex = index;
 		if(section != null && section.getIndex() != null){
 			majorIndex = section.getIndex();
-			
 			if(group != null && group.getIndex() != null){
 				mediumIndex = group.getIndex() * 1000;
 			}
@@ -169,5 +184,30 @@ public class Line extends AbstractDataObject implements Comparable<Line>{
 		return (majorIndex * 1000 * 1000) + 
 				(mediumIndex * 1000) + 
 				minorIndex;
+	}
+	/**
+	 * @return the sheet
+	 */
+	@ManyToOne
+	@JoinColumn(name="sheet_id")
+	@XmlTransient
+	public Sheet getSheet() {
+		return sheet;
+	}
+	/**
+	 * @param sheet the sheet to set
+	 */
+	public void setSheet(Sheet sheet) {
+		this.sheet = sheet;
+		this.sheetId.setId(this.sheet == null ? null : this.sheet.getId());
+	}
+	
+	@XmlElement(name="sheet")
+	@Transient
+	public Sheet getSheetId(){
+		return this.sheetId;
+	}
+	public void getSheetForLine(Sheet sheet){
+		this.sheetId = sheet;
 	}
 }

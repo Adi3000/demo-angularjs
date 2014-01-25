@@ -103,6 +103,9 @@ function hideLoadingDiv(){
  * @returns
  */
 function isEmpty(o){
+	if(angular.isUndefined(o)){
+		return true;
+	}
 	if( Object.prototype.toString.call( o ) === '[object Array]' && o.length == 1){
 		return $.isEmptyObject(o[0]);
 	}else{

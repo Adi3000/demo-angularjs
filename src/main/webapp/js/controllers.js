@@ -10,6 +10,10 @@ angular.module('whichOnesControllers', ['whichOnesServices', 'ngRoute'])
 			//Load that sheet
 			$scope.sheet = WhichOnesSheetService.getSheet(sheetToken);
 			WhichOnesSheetService.prepareSheet();
+			$scope.$on( 'sheet.created', function( event ) {
+				console.log("created",$scope);
+				$location.search("sheet",$scope.sheet.token);
+			});
 			$scope.$on( 'sheet.available', function( event ) {
 				$scope.sections = WhichOnesSheetService.mapSections();
 				$scope.sheet = WhichOnesSheetService.sheet;
@@ -26,7 +30,8 @@ angular.module('whichOnesControllers', ['whichOnesServices', 'ngRoute'])
 				console.log($scope.sheet);
 			};
 			$scope.create = function(){
-				WhichOnesSheetService.createSheet($scope.sheet);
+				$scope.sheet = WhichOnesSheetService.createSheet($scope.sheet);
+				WhichOnesSheetService.controleNewSheet();
 				console.log($scope.sheet);
 			};
 			$scope.$on('code.available', function(e){
@@ -70,14 +75,6 @@ angular.module('whichOnesControllers', ['whichOnesServices', 'ngRoute'])
 								.text(code));
 						SyntaxHighlighter.highlight();
 					});
-//					$scope.$on( 'code.available', function( event ) {
-//						$element.append(
-//							$("<pre />")
-//								.addClass("brush: html")
-//								.text(code));
-//						console.log($scope.code, $element);
-//						SyntaxHighlighter.highlight();
-//					});
 				});
 			}
 		};

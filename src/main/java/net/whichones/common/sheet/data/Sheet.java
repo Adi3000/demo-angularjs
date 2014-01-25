@@ -2,14 +2,17 @@ package net.whichones.common.sheet.data;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
+import java.util.SortedSet;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
@@ -22,6 +25,8 @@ import net.whichones.common.lines.data.Line;
 import org.codehaus.jettison.json.JSONArray;
 import org.codehaus.jettison.json.JSONException;
 import org.hibernate.annotations.NaturalId;
+import org.hibernate.annotations.Sort;
+import org.hibernate.annotations.SortType;
 import org.hibernate.annotations.Type;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -45,7 +50,7 @@ public class Sheet extends AbstractDataObject{
 	private String token;
 	private String password;
 	private User user;
-	private Set<Line> lines;
+	private SortedSet<Line> lines;
 	private Boolean newSheet;
 	/**
 	 * @return the id
@@ -92,13 +97,13 @@ public class Sheet extends AbstractDataObject{
 	 * @return the token
 	 */
 	@Column(name="sheet_token")
+	@NaturalId
 	public String getToken() {
 		return token;
 	}
 	/**
 	 * @param token the token to set
 	 */
-	@NaturalId
 	public void setToken(String token) {
 		this.token = token;
 	}
@@ -118,6 +123,7 @@ public class Sheet extends AbstractDataObject{
 	/**
 	 * @return the user
 	 */
+	@ManyToOne
 	@JoinColumn(name="user_id")
 	public User getUser() {
 		return user;
@@ -163,15 +169,17 @@ public class Sheet extends AbstractDataObject{
 	/**
 	 * @return the lines
 	 */
-	@OneToMany
-	@JoinColumn(name="sheet_id")
-	public Set<Line> getLines() {
+	@OneToMany(mappedBy="sheet", 
+			targetEntity=Line.class, cascade=CascadeType.ALL,
+			fetch=FetchType.EAGER)
+	@Sort(type=SortType.NATURAL)
+	public SortedSet<Line> getLines() {
 		return lines;
 	}
 	/**
 	 * @param lines the lines to set
 	 */
-	public void setLines(Set<Line> lines) {
+	public void setLines(SortedSet<Line> lines) {
 		this.lines = lines;
 	}
 	/**

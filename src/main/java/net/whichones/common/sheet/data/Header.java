@@ -26,7 +26,7 @@ public class Header implements Serializable{
 	Header(JSONObject headerJson) throws JSONException{
 		this.name = headerJson.getString(JSON_NAME);
 		this.type = headerJson.getString(JSON_TYPE);
-		this.value = headerJson.getBoolean(JSON_VALUE);
+		this.value = headerJson.optBoolean(JSON_VALUE);
 	}
 	/**
 	 * @return the name
@@ -79,11 +79,12 @@ public class Header implements Serializable{
 	}
 	static JSONArray toJSONArray(List<Header> headers) throws JSONException{
 		JSONArray headersJson = new JSONArray();
-		JSONObject jsonObject = new JSONObject();
+		JSONObject jsonObject = null;
 		for(Header header : headers){
-			jsonObject.append(JSON_NAME, header.getName());
-			jsonObject.append(JSON_TYPE, header.getType());
-			jsonObject.append(JSON_VALUE, header.getValue());
+			jsonObject = new JSONObject();
+			jsonObject.put(JSON_NAME, header.getName());
+			jsonObject.put(JSON_TYPE, header.getType());
+			jsonObject.putOpt(JSON_VALUE, header.getValue());
 			headersJson.put(jsonObject);
 		}
 		return headersJson;

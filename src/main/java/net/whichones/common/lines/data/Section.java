@@ -15,7 +15,13 @@ import com.adi3000.common.database.hibernate.data.AbstractDataObject;
 @SequenceGenerator(name = "sections_section_id_seq", sequenceName = "sections_section_id_seq", allocationSize=1)
 public class Section extends AbstractDataObject{
 
-	
+	public Section(){
+		super();
+	}
+	public Section(Section section){
+		this.index = section.getIndex();
+		this.name = section.getName();
+	}
 	/**
 	 * 
 	 */
@@ -54,6 +60,7 @@ public class Section extends AbstractDataObject{
 	/**
 	 * @return the index
 	 */
+	@Column(name="section_index")
 	public Integer getIndex() {
 		return index;
 	}

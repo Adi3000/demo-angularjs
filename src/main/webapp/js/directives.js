@@ -153,7 +153,7 @@ var whichOnesDirectives = angular.module('whichOnesDirectives', ['whichOnesContr
 					evenSection = !evenSection;
 					$element.addClass(evenSection ? sectionEvenClass : sectionOddClass);
 				}else{
-					if(!angular.isUndefined(line.section)){
+					if(!isEmpty(line.section)){
 						$element.addClass(evenSection ? sectionEvenClass : sectionOddClass);
 					}
 					$timeout(function(){
