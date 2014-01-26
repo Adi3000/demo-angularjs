@@ -165,11 +165,23 @@ public class Line extends AbstractDataObject implements Comparable<Line>{
 	}
 	@Override
 	public int compareTo(Line o) {
-		return this.getFullIndex() - o.getFullIndex();
+		int indexOrder = this.getFullIndex() - o.getFullIndex();
+		if(indexOrder == 0){
+			if(this.getId() != null && o.getId() != null){
+				return this.getId().compareTo(o.getId());
+			}else if(this.getId() != null ){
+				return this.getId();
+			}else if(o.getId() != null){
+				return - o.getId();
+			}
+		}else{
+			return indexOrder;
+		}
+		return 0 ;
 	}
 	@Transient
 	int getFullIndex(){
-		int index = this.index == null ? 0 : this.index;
+		int index = this.index == null ? 0 :  this.index;
 		int majorIndex = index;
 		int mediumIndex = index;
 		int minorIndex = index;

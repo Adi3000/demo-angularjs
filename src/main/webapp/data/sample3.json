@@ -26,6 +26,7 @@
 	"lines":[
 		{
 			"id":1,
+			"index":1,
 			"selected":true,
 			"section":{
 				"name":"Essentiel & vital",
@@ -51,6 +52,7 @@
 		},
 		{
 			"id":6,
+			"index":6,
 			"selected":true,
 			"section":{
 				"name":"Essentiel & vital",
@@ -75,6 +77,7 @@
 			
 		},
 		{
+			"id":2,
 			"id":2,
 			"selected":true,
 			"section":{
@@ -101,6 +104,7 @@
 		},
 		{
 			"id":7,
+			"index":7,
 			"selected":true,
 			"data":[
 				{
@@ -120,6 +124,7 @@
 			
 		},
 		{
+			"id":5,
 			"id":5,
 			"section":{
 				"name":"Petit plus de confort de vie",
@@ -146,6 +151,7 @@
 		},
 		{
 			"id":4,
+			"index":4,
 			"section":{
 				"name":"Petit plus de confort de vie",
 				"index":2,
@@ -171,6 +177,7 @@
 		},
 		{
 			"id":3,
+			"index":3,
 			"section":{
 				"name":"Petit plus de confort de vie",
 				"index":2,
