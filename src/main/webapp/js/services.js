@@ -93,6 +93,9 @@ var whichOnesServices = angular.module('whichOnesServices', ['ngResource'])
 				},
 				saveLine: function(id){
 					var line = findLine(this.sheet.lines, id);
+					if(isEmpty(line.sheet) || isEmpty(line.sheet.id)){
+						line.sheet = { "id" : this.sheet.id };
+					}
 					if(line.$resolved){
 						line.$save().then(function(newLine){
 							$rootScope.$broadcast( 'sheet.update' );
