@@ -5,9 +5,7 @@
     <artifactId>webapp</artifactId>
     <version>0.0.1-SNAPSHOT</version>
   </parent>
-  <groupId>com.adi3000</groupId>
   <artifactId>angularjs</artifactId>
-  <version>0.0.1-SNAPSHOT</version>
   <packaging>war</packaging>
   <name>Demo AngularJS</name>
   <dependencies>

@@ -44,8 +44,8 @@ angular.module('whichOnesControllers', ['whichOnesServices', 'ngRoute'])
 	.factory("TutoCode", ['$resource',function( $resource){
 		return $resource('steps/step:step.html', { "step" : "@step" });
 	}])
-	.controller("tutoSteps", ['$scope', '$location','$route','$http','$rootScope',
-	    function($scope, $location, $route, $http, $rootScope){
+	.controller("tutoSteps", ['$scope', '$location','$route','$http','$rootScope','$templateCache',
+	    function($scope, $location, $route, $http, $rootScope, $templateCache){
 			$scope.step = $location.search().step;
 			$scope.sample = $location.search().sheet;
 			$http.get('steps/step'+$scope.step+'.html').then(function(response){
@@ -58,6 +58,9 @@ angular.module('whichOnesControllers', ['whichOnesServices', 'ngRoute'])
 					$scope.code = response.data;
 					$rootScope.$broadcast( 'code.available' );
 				});
+			};
+			$scope.reload = function(){
+				window.location.reload(true);
 			};
 		}
 	])

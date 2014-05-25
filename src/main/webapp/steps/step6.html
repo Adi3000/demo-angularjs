@@ -5,7 +5,7 @@
 	<div id="list-header" class="ui-corner-all">
 		<div class="ui-widget-header ui-corner-top">
 			<div data-editable="sheet.title" 
-				 data-init-editing="sheet.newSheet" 
+ 				 data-init-editing="sheet.newSheet" 
 				 data-mandatory="true"
 				 data-placeholder="{{ 'LB_SHEET_TITLE' | translate }}"></div>
 			<div 
@@ -21,7 +21,7 @@
 						data-editable="header.name" 
 						data-placeholder="{{ 'LB_COLUMN_FILED' | translate }}"
 						data-mandatory="true"
-						data-init-editing="header.newValue">
+						data-init-editing="header.newSheet">
 				</tr>
 			</thead>
 			<tbody data-nb-columns="{{sheet.headers.length +1}}">
@@ -37,7 +37,7 @@
 						data-editable="line.section.name" 
 						data-mandatory="true"
 						data-placeholder="{{ 'LB_SECTION_FILED' | translate }}"
-						data-init-editing="line.section.newValue"
+						data-init-editing="line.section.newSheet"
 						colspan="{{sheet.headers.length +1}}" />
 					<td data-manage-line="line"
 						data-ng-if="!line.isSection" /> 

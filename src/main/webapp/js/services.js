@@ -29,10 +29,8 @@ var whichOnesServices = angular.module('whichOnesServices', ['ngResource'])
 			return $resource('rest/sheet/:tokenId', {tokenId: '@tokenId' }, {
 				auth: {method:'POST', params:{password:'@password'}, isArray:false},
 				getNewSheet: {method:'GET', url:'data/newSheet.json', isArray:false},		
-				getSample1: {method:'GET', url:'data/sample1.json', isArray:false},
-				getSample2: {method:'GET', url:'data/sample2.json', isArray:false},
-				getSample3: {method:'GET', url:'data/sample3.json', isArray:false},
-				create: {method: 'POST', url: 'rest/sheet/create', isArray: false},
+				getSample: {method:'GET', url:'data/:sample.json', params : { sample : "@sampleId" }, isArray:false},
+				create: {method: 'POST', url: 'rest/sheet/create', isArray: false}
 			});
 	   }
 	])
@@ -41,16 +39,12 @@ var whichOnesServices = angular.module('whichOnesServices', ['ngResource'])
 			return {
 				sheet : null,
 				getSheet : function (tokenId){
-					if(tokenId == null){
+					if(isEmpty(tokenId)){
 						this.sheet = WhichOnesData.getNewSheet();
-					}else if(tokenId == "sample1"){
-						this.sheet = WhichOnesData.getSample1();
-					}else if(tokenId == "sample2"){
-						this.sheet = WhichOnesData.getSample2();
-					}else if(tokenId == "sample3"){
-						this.sheet = WhichOnesData.getSample3();
+					}else if(/^~sample/.test(tokenId)){
+						this.sheet = WhichOnesData.getSample({ sample : tokenId.substr(1)});
 					}else{
-						this.sheet = WhichOnesData.get({"tokenId" : tokenId});
+						this.sheet = WhichOnesData.get({tokenId:tokenId});
 					}
 					return this.sheet;
 				},
@@ -89,7 +83,9 @@ var whichOnesServices = angular.module('whichOnesServices', ['ngResource'])
 				},
 				saveSheet: function(){
 					console.log(this.sheet);
-					this.prepareSheet();
+					if(isEmpty(this.sheet.newSheet) && !this.sheet.newSheet){
+						this.prepareSheet();
+					}
 				},
 				saveLine: function(id){
 					var line = findLine(this.sheet.lines, id);
@@ -101,10 +97,12 @@ var whichOnesServices = angular.module('whichOnesServices', ['ngResource'])
 							$rootScope.$broadcast( 'sheet.update' );
 						});
 					}else{
-						line = WhichOnesLines.save(line);
-						line.$promise.then(function(newLine){
-							$rootScope.$broadcast( 'sheet.update' );
-						});
+						if(isEmpty(this.sheet.newSheet) && !this.sheet.newSheet){
+							line = WhichOnesLines.save(line);
+							line.$promise.then(function(newLine){
+								$rootScope.$broadcast( 'sheet.update' );
+							});
+						}
 					}
 					console.log(line);
 				},

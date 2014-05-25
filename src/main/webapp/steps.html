@@ -9,20 +9,20 @@
 		<meta name="Category" content="engineering">
 		<meta name="Geography" content="France, Lille">
 		<title>Which ones</title>
-		<link rel="stylesheet" href="//code.jquery.com/ui/1.10.3/themes/start/jquery-ui.min.css" />
+		<link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/start/jquery-ui.min.css" />
 		<link rel="stylesheet" href="css/app.css" />
 		<link rel="stylesheet" href="css/app-print.css" media="print" />
 		<link rel="shortcut icon" href="img/favicon.png" />
 		
-		<script src="//code.jquery.com/jquery-1.10.2.min.js"></script>
-		<script src="//code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
-		<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.7/angular.min.js"></script>
+		<script src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
+		<script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
+		<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.2.7/angular.min.js"></script>
 		<script src="http://code.angularjs.org/1.2.7/angular-route.min.js"></script>
 	 	<script src="http://code.angularjs.org/1.2.7/angular-resource.js"></script>
 	 	<script src="http://code.angularjs.org/1.2.7/angular-sanitize.min.js"></script>
 	 	<script src="http://code.angularjs.org/1.2.7/i18n/angular-locale_fr-fr.js"></script>
 	 	<script src="lib/angular/angular-translate.min.js"></script>
-		<script src="//cdnjs.cloudflare.com/ajax/libs/jquery-powertip/1.2.0/jquery.powertip.min.js"></script>
+		<script src="http://cdnjs.cloudflare.com/ajax/libs/jquery-powertip/1.2.0/jquery.powertip.min.js"></script>
 		<script src="js/common.js"></script>
 		<script src="js/appTuto.js"></script>
 		<script src="js/translate.js"></script>
@@ -37,7 +37,7 @@
 	</head>
 	<body>
 		<div id="body" class="view-container ui-corner-all" data-ng-controller="tutoSteps">
-			Step : {{ step }}
+			Step : {{ step }} <input type="button" data-ng-click="reload()" value="reload"/>
 			<div>
 				<div>
 					<span> Go to : </span>

@@ -88,7 +88,9 @@ var whichOnesDirectives = angular.module('whichOnesDirectives', ['whichOnesContr
 			},
 			templateUrl: 'template/editable.html',
 			controller: function($scope, $element){
-
+				$scope.editing = $scope.initEditing;
+				$scope.role = $scope.$parent.role;
+				$scope.editingValue = $scope.value;
 				$scope.edit = function() {
 					$scope.editing = true;
 					$scope.editingValue = $scope.value;
@@ -118,10 +120,6 @@ var whichOnesDirectives = angular.module('whichOnesDirectives', ['whichOnesContr
 						alert($translate("MSG_MANDATORY"));
 					}
 				};
-				
-				$scope.editing = $scope.initEditing;
-				$scope.role = $scope.$parent.role;
-				$scope.editingValue = $scope.value;
 			}
 		};
 		

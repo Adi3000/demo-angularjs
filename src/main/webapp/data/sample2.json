@@ -1,6 +1,7 @@
 {
 	"id":"test",
 	"title":"Liste de Nöel",
+	"newSheet" : true,
 	"description":"Il est jamais trop tard pour faire plaisir",
 	"headers":[
 		{
@@ -25,6 +26,7 @@
 	"lines":[
 		{
 			"id":1,
+			"index":1,
 			"selected":true,
 			"section":{
 				"name":"Essentiel & vital",
@@ -50,6 +52,7 @@
 		},
 		{
 			"id":6,
+			"index":6,
 			"selected":true,
 			"section":{
 				"name":"Essentiel & vital",
@@ -75,6 +78,7 @@
 		},
 		{
 			"id":2,
+			"index":2,
 			"selected":true,
 			"section":{
 				"name":"Essentiel & vital",
@@ -99,7 +103,8 @@
 			
 		},
 		{
-			"id":7,
+			"id":2,
+			"index":2,
 			"selected":true,
 			"data":[
 				{
@@ -120,6 +125,7 @@
 		},
 		{
 			"id":5,
+			"index":5,
 			"section":{
 				"name":"Petit plus de confort de vie",
 				"index":2,
@@ -145,6 +151,7 @@
 		},
 		{
 			"id":4,
+			"index":4,
 			"section":{
 				"name":"Petit plus de confort de vie",
 				"index":2,
@@ -170,6 +177,7 @@
 		},
 		{
 			"id":3,
+			"index":3,
 			"section":{
 				"name":"Petit plus de confort de vie",
 				"index":2,
